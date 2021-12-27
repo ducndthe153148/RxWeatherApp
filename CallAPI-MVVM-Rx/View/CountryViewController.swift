@@ -23,12 +23,19 @@ class CountryViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.register(CountryTableViewCell.nib().self, forCellReuseIdentifier: CountryTableViewCell.identifier)
         
-        self.viewModel.listCountry.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell", cellType: CountryTableViewCell.self)) { ( row, model, cell) in
-//            cell.textLabel?.text = model.name
-            cell.labelTest.text = model.name
+//        self.viewModel.listCountry.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell", cellType: CountryTableViewCell.self)) { ( row, model, cell) in
+////            cell.textLabel?.text = model.name
+//            cell.labelTest.text = model.name
+//            cell.realTemp.text = model.code
+//
+//        }.disposed(by: disposedBag)
+        
+        self.viewModel.listWeather.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell", cellType: CountryTableViewCell.self)) { (row, model, cell) in
+            cell.labelTest.text = "model123"
+            cell.feelTemp.text = "\(Int(Double(model.feels_like!) - 272.15))°"
+            cell.realTemp.text = "\(Int(Double(model.temp!) - 272.15))°"
             
         }.disposed(by: disposedBag)
-        
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
     }
     

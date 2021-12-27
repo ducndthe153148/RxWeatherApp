@@ -11,8 +11,10 @@ import RxCocoa
 
 class CountryViewModel {
     var apiCalling = APICalling()
+    
+    //MARK: - Property 
     var listCountry: PublishRelay<[CountryListModel]> = .init()
-    var listWeather: PublishRelay<WeatherReponse> = .init()
+    var listWeather: PublishRelay<[HourlyWeather]> = .init()
     var viewWillApper: PublishRelay<Void> = .init()
     var disposedBag = DisposeBag()
     
@@ -28,13 +30,20 @@ class CountryViewModel {
         }).disposed(by: disposedBag)
     }
     
+//    func ViewModel() {
+//        let request = APIRequest()
+//        self.apiCalling.send(apiRequest: request, type: CountryModel.self).subscribe(onNext: { [weak self] list in
+//            guard let self = self else { return }
+//            self.listCountry.accept(list.result ?? [])
+//        }).disposed(by: disposedBag)
+//    }
+    
     func ViewModel() {
         let request = APIRequest()
-        self.apiCalling.send(apiRequest: request, type: CountryModel.self).subscribe(onNext: { [weak self] list in
+        self.apiCalling.send(apiRequest: request, type: [HourlyWeather].self).subscribe(onNext: { [weak self] list in
             guard let self = self else { return }
-            self.listCountry.accept(list.result ?? [])
+            self.listWeather.accept(list)
         }).disposed(by: disposedBag)
-        
     }
     
 }
