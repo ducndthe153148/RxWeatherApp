@@ -11,7 +11,8 @@ import RxCocoa
 
 class CountryViewModel {
     var apiCalling = APICalling()
-    var obser: PublishRelay<[CountryListModel]> = .init()
+    var listCountry: PublishRelay<[CountryListModel]> = .init()
+    var listWeather: PublishRelay<WeatherReponse> = .init()
     var viewWillApper: PublishRelay<Void> = .init()
     var disposedBag = DisposeBag()
     
@@ -31,7 +32,7 @@ class CountryViewModel {
         let request = APIRequest()
         self.apiCalling.send(apiRequest: request, type: CountryModel.self).subscribe(onNext: { [weak self] list in
             guard let self = self else { return }
-            self.obser.accept(list.result ?? [])
+            self.listCountry.accept(list.result ?? [])
         }).disposed(by: disposedBag)
         
     }

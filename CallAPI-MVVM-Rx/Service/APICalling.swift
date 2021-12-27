@@ -68,3 +68,17 @@ class APICalling {
         }
     }
 }
+
+
+//singleton:
+//
+//Bản gốc:
+//Sơ yếu lí lịch
+//Giấy khám sức khỏe
+//Ảnh 3*4 (2)
+//
+//Công chứng:
+//Sổ hộ khẩu
+//CMND
+//Giấy khai sinh
+//Bằng tốt nghiệp

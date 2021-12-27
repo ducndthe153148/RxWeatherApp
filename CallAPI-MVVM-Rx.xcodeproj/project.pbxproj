@@ -115,6 +115,8 @@
 		F4FCD8A82779671A00BA5FA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F4FCD8B72779CCC500BA5FA1 /* HourlyDetailController */,
+				F4FCD8B62779CCA900BA5FA1 /* HourlyCollectionViewCell */,
 				F4FCD8B1277968C900BA5FA1 /* CountryTableViewCell */,
 				F4FCD897277966B300BA5FA1 /* CountryViewController.swift */,
 			);
@@ -144,6 +146,20 @@
 				F4FCD8B32779690100BA5FA1 /* CountryTableViewCell.xib */,
 			);
 			path = CountryTableViewCell;
+			sourceTree = "<group>";
+		};
+		F4FCD8B62779CCA900BA5FA1 /* HourlyCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HourlyCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		F4FCD8B72779CCC500BA5FA1 /* HourlyDetailController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HourlyDetailController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

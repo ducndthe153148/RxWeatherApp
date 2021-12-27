@@ -23,8 +23,10 @@ class CountryViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.register(CountryTableViewCell.nib().self, forCellReuseIdentifier: CountryTableViewCell.identifier)
         
-        self.viewModel.obser.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell")) { ( row, model, cell) in
-            cell.textLabel?.text = model.name
+        self.viewModel.listCountry.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell", cellType: CountryTableViewCell.self)) { ( row, model, cell) in
+//            cell.textLabel?.text = model.name
+            cell.labelTest.text = model.name
+            
         }.disposed(by: disposedBag)
         
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
@@ -35,3 +37,9 @@ class CountryViewController: UIViewController {
     }
     
 }
+
+//extension CountryViewController: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 90
+//    }
+//}

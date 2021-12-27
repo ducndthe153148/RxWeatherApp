@@ -11,6 +11,11 @@ import RxSwift
 
 class CountryTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var labelTest: UILabel!
+    @IBOutlet weak var realTemp: UILabel!
+    @IBOutlet weak var feelTemp: UILabel!
+    @IBOutlet weak var imageIcon: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,9 +38,8 @@ class CountryTableViewCell: UITableViewCell {
     private let disposeBag = DisposeBag()
     
     func configure(){
-        // self.labelTest.text = "Trung Duc"
+        
     }
-    
-    
+
     
 }
