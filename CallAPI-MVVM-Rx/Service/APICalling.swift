@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import Alamofire
 
 public enum RequestType: String {
     case GET, POST, PUT, DELETE
@@ -31,20 +32,35 @@ class APICalling {
     // create a method for calling api which is return a Observable
     func send<T: Codable>(apiRequest: APIRequest, type: T.Type) -> Observable<T> {
         print("vvvvv")
+        // Using alamofire
         return Observable<T>.create { observer in
-            let request = apiRequest.request(with: apiRequest.baseURL)
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                do {
-                    print("DDDDDD")
-                    let model = try JSONDecoder().decode(T.self, from: data ?? Data())
-                    observer.onNext(model)
-                } catch let error {
-                    print("ERRORRRRR")
-                    observer.onError(error)
+            let task = AF.request(apiRequest.baseURL, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil, interceptor: nil)
+                .response{ (responseData) in
+                    guard let data = responseData.data else { return }
+                    do {
+                        print("DDDDDD")
+                        let model = try JSONDecoder().decode(T.self, from: data)
+                        observer.onNext(model)
+                    } catch {
+                        observer.onError(error)
+                    }
+                    observer.onCompleted()
                 }
-                observer.onCompleted()
-            }
-            task.resume()
+
+                // Using URLSession
+//            let request = apiRequest.request(with: apiRequest.baseURL)
+//            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//                do {
+//                    print("DDDDDD")
+//                    let model = try JSONDecoder().decode(T.self, from: data ?? Data())
+//                    observer.onNext(model)
+//                } catch let error {
+//                    print("ERRORRRRR")
+//                    observer.onError(error)
+//                }
+//                observer.onCompleted()
+//            }
+//            task.resume()
             
             return Disposables.create {
                 task.cancel()
