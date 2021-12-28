@@ -16,7 +16,6 @@ class WeatherViewModel {
     weak var vc: UIViewController!
 //    var listCountry: PublishRelay<[CountryListModel]> = .init()
     var listWeather: PublishRelay<[HourlyWeather]> = .init()
-//    var sendHourlyWeather: PublishRelay<Int> = .init()
     var modelSelect: PublishRelay<HourlyWeather> = .init()
     var receiveModelHourly: BehaviorRelay<HourlyWeather> = .init(value: HourlyWeather())
     
@@ -36,14 +35,14 @@ class WeatherViewModel {
             }
         }).disposed(by: disposedBag)
 //        self.clickCell()
+        
         modelSelect.subscribe(onNext: { model in
             let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
             let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
             
 //            self?.sendHourlyWeather.accept(indexPath.row)
-            
-            vc.navigationController?.pushViewController(controller, animated: true)
             controller.viewModel.receiveModelHourly.accept(model)
+            vc.navigationController?.pushViewController(controller, animated: true)
             
         }).disposed(by: disposedBag)
         self.vc = vc

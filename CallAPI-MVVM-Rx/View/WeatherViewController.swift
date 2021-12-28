@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -52,7 +52,9 @@ class WeatherViewController: UIViewController {
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
 //        self.sendHourlyWeather.bind(to: self.viewModel.sendHourlyWeather).disposed(by: disposedBag)
         
-         tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
+        self.tableView.rx.setDelegate(self).disposed(by: disposedBag)
+        
+        tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
             guard let self = self else { return }
              self.viewModel.modelSelect.accept(model)
         }).disposed(by: disposedBag)
@@ -86,4 +88,8 @@ extension WeatherViewController {
     
 }
 
-
+extension WeatherViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+}

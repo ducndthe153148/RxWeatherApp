@@ -36,25 +36,32 @@ class HourlyDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-//        self.receiveModelHourly.bind(to: self.viewModel.receiveModelHourly).disposed(by: disposedBag)
-
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.receiveModelHourly.bind(to: self.viewModel.receiveModelHourly).disposed(by: disposedBag)
 //
-        viewModel.receiveModelHourly.subscribe(onNext: { model in
+        viewModel.receiveModelHourly.subscribe(onNext: { [weak self] model in
+            guard let self = self else { return }
             if model.weather != nil {
-                print("Model del \(model)")
-                print("ABCD Model")
+                self.labelTest.text = "Tokyo, Japan"
+                self.weatherDescrip.text = "\(model.weather?[0].description! ?? "")"
+                self.tempLabel.text = "\(Int(Float(model.temp ?? 0) - 272.15))°"
+                self.tempFeel.text = "\(Int(Double(model.feels_like ?? 0) - 272.15))°"
+                self.pressure.text = "Pressure: \((model.pressure)!)"
+                self.clouds.text = "Cloudiness: \((model.clouds)!)%"
+                self.humidity.text = "Humidity: \((model.humidity)!)%"
+                self.uvi.text = "Current UV: 0"
+                self.windSpeed.text = "Wind speed: \((model.wind_speed)!)"
+                self.visibility.text = "Visibility: \((model.visibility)!) m"
+                self.pop.text = "Precipitation: \((model.pop)!)"
+                self.rainRate.text = "Rain rate: 20%"
             }
             
         }).disposed(by: disposedBag)
-        
-//        labelTest.text = "Trung Duc"
-        
+                
     }
     
     
