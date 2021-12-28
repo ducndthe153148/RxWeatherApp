@@ -8,36 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		97CCAD204BF3641E91CED05F /* Pods_CallAPI_MVVM_Rx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F218A7E3963128F96331064 /* Pods_CallAPI_MVVM_Rx.framework */; };
+		F4922C79277AB09F00CDD6C1 /* HourlyDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4922C78277AB09F00CDD6C1 /* HourlyDetailViewController.storyboard */; };
+		F4922C7B277AB0B000CDD6C1 /* HourlyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4922C7A277AB0B000CDD6C1 /* HourlyDetailViewController.swift */; };
 		F4FCD894277966B300BA5FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD893277966B300BA5FA1 /* AppDelegate.swift */; };
 		F4FCD896277966B300BA5FA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD895277966B300BA5FA1 /* SceneDelegate.swift */; };
-		F4FCD898277966B300BA5FA1 /* CountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD897277966B300BA5FA1 /* CountryViewController.swift */; };
+		F4FCD898277966B300BA5FA1 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD897277966B300BA5FA1 /* WeatherViewController.swift */; };
 		F4FCD89B277966B300BA5FA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FCD899277966B300BA5FA1 /* Main.storyboard */; };
 		F4FCD89D277966B500BA5FA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4FCD89C277966B500BA5FA1 /* Assets.xcassets */; };
 		F4FCD8A0277966B500BA5FA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FCD89E277966B500BA5FA1 /* LaunchScreen.storyboard */; };
-		F4FCD8AC2779678700BA5FA1 /* CountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD8AB2779678700BA5FA1 /* CountryViewModel.swift */; };
+		F4FCD8AC2779678700BA5FA1 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD8AB2779678700BA5FA1 /* WeatherViewModel.swift */; };
 		F4FCD8AE277967A000BA5FA1 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD8AD277967A000BA5FA1 /* CountryModel.swift */; };
 		F4FCD8B0277967C100BA5FA1 /* APICalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD8AF277967C100BA5FA1 /* APICalling.swift */; };
-		F4FCD8B42779690100BA5FA1 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD8B22779690100BA5FA1 /* CountryTableViewCell.swift */; };
-		F4FCD8B52779690100BA5FA1 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4FCD8B32779690100BA5FA1 /* CountryTableViewCell.xib */; };
+		F4FCD8B42779690100BA5FA1 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCD8B22779690100BA5FA1 /* WeatherTableViewCell.swift */; };
+		F4FCD8B52779690100BA5FA1 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4FCD8B32779690100BA5FA1 /* WeatherTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		020E25CBC9E24D8C79E6ED9F /* Pods-CallAPI-MVVM-Rx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CallAPI-MVVM-Rx.debug.xcconfig"; path = "Target Support Files/Pods-CallAPI-MVVM-Rx/Pods-CallAPI-MVVM-Rx.debug.xcconfig"; sourceTree = "<group>"; };
 		6F218A7E3963128F96331064 /* Pods_CallAPI_MVVM_Rx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CallAPI_MVVM_Rx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A94946644C5D5B4421B454A /* Pods-CallAPI-MVVM-Rx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CallAPI-MVVM-Rx.release.xcconfig"; path = "Target Support Files/Pods-CallAPI-MVVM-Rx/Pods-CallAPI-MVVM-Rx.release.xcconfig"; sourceTree = "<group>"; };
+		F4922C78277AB09F00CDD6C1 /* HourlyDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HourlyDetailViewController.storyboard; sourceTree = "<group>"; };
+		F4922C7A277AB0B000CDD6C1 /* HourlyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyDetailViewController.swift; sourceTree = "<group>"; };
 		F4FCD890277966B300BA5FA1 /* CallAPI-MVVM-Rx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CallAPI-MVVM-Rx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FCD893277966B300BA5FA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4FCD895277966B300BA5FA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F4FCD897277966B300BA5FA1 /* CountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewController.swift; sourceTree = "<group>"; };
+		F4FCD897277966B300BA5FA1 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		F4FCD89A277966B300BA5FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4FCD89C277966B500BA5FA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4FCD89F277966B500BA5FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4FCD8A1277966B500BA5FA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4FCD8AB2779678700BA5FA1 /* CountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryViewModel.swift; sourceTree = "<group>"; };
+		F4FCD8AB2779678700BA5FA1 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		F4FCD8AD277967A000BA5FA1 /* CountryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
 		F4FCD8AF277967C100BA5FA1 /* APICalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICalling.swift; sourceTree = "<group>"; };
-		F4FCD8B22779690100BA5FA1 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
-		F4FCD8B32779690100BA5FA1 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
+		F4FCD8B22779690100BA5FA1 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		F4FCD8B32779690100BA5FA1 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F4922C6D277AA3C600CDD6C1 /* WeatherTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F4FCD8B22779690100BA5FA1 /* WeatherTableViewCell.swift */,
+				F4FCD8B32779690100BA5FA1 /* WeatherTableViewCell.xib */,
+			);
+			path = WeatherTableViewCell;
+			sourceTree = "<group>";
+		};
 		F4FCD887277966B300BA5FA1 = {
 			isa = PBXGroup;
 			children = (
@@ -92,8 +105,8 @@
 			children = (
 				F4FCD8A7277966F400BA5FA1 /* Model */,
 				F4FCD8A82779671A00BA5FA1 /* View */,
+				F4FCD897277966B300BA5FA1 /* WeatherViewController.swift */,
 				F4FCD8A92779671F00BA5FA1 /* ViewModel */,
-				F4FCD8AA2779672700BA5FA1 /* Service */,
 				F4FCD893277966B300BA5FA1 /* AppDelegate.swift */,
 				F4FCD895277966B300BA5FA1 /* SceneDelegate.swift */,
 				F4FCD899277966B300BA5FA1 /* Main.storyboard */,
@@ -115,10 +128,9 @@
 		F4FCD8A82779671A00BA5FA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F4922C6D277AA3C600CDD6C1 /* WeatherTableViewCell */,
 				F4FCD8B72779CCC500BA5FA1 /* HourlyDetailController */,
 				F4FCD8B62779CCA900BA5FA1 /* HourlyCollectionViewCell */,
-				F4FCD8B1277968C900BA5FA1 /* CountryTableViewCell */,
-				F4FCD897277966B300BA5FA1 /* CountryViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -126,7 +138,8 @@
 		F4FCD8A92779671F00BA5FA1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F4FCD8AB2779678700BA5FA1 /* CountryViewModel.swift */,
+				F4FCD8AB2779678700BA5FA1 /* WeatherViewModel.swift */,
+				F4FCD8AA2779672700BA5FA1 /* Service */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -139,15 +152,6 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		F4FCD8B1277968C900BA5FA1 /* CountryTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				F4FCD8B22779690100BA5FA1 /* CountryTableViewCell.swift */,
-				F4FCD8B32779690100BA5FA1 /* CountryTableViewCell.xib */,
-			);
-			path = CountryTableViewCell;
-			sourceTree = "<group>";
-		};
 		F4FCD8B62779CCA900BA5FA1 /* HourlyCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +162,8 @@
 		F4FCD8B72779CCC500BA5FA1 /* HourlyDetailController */ = {
 			isa = PBXGroup;
 			children = (
+				F4922C78277AB09F00CDD6C1 /* HourlyDetailViewController.storyboard */,
+				F4922C7A277AB0B000CDD6C1 /* HourlyDetailViewController.swift */,
 			);
 			path = HourlyDetailController;
 			sourceTree = "<group>";
@@ -222,9 +228,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4FCD8B52779690100BA5FA1 /* CountryTableViewCell.xib in Resources */,
+				F4FCD8B52779690100BA5FA1 /* WeatherTableViewCell.xib in Resources */,
 				F4FCD8A0277966B500BA5FA1 /* LaunchScreen.storyboard in Resources */,
 				F4FCD89D277966B500BA5FA1 /* Assets.xcassets in Resources */,
+				F4922C79277AB09F00CDD6C1 /* HourlyDetailViewController.storyboard in Resources */,
 				F4FCD89B277966B300BA5FA1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,12 +285,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4FCD898277966B300BA5FA1 /* CountryViewController.swift in Sources */,
-				F4FCD8AC2779678700BA5FA1 /* CountryViewModel.swift in Sources */,
+				F4922C7B277AB0B000CDD6C1 /* HourlyDetailViewController.swift in Sources */,
+				F4FCD898277966B300BA5FA1 /* WeatherViewController.swift in Sources */,
+				F4FCD8AC2779678700BA5FA1 /* WeatherViewModel.swift in Sources */,
 				F4FCD894277966B300BA5FA1 /* AppDelegate.swift in Sources */,
 				F4FCD8B0277967C100BA5FA1 /* APICalling.swift in Sources */,
 				F4FCD8AE277967A000BA5FA1 /* CountryModel.swift in Sources */,
-				F4FCD8B42779690100BA5FA1 /* CountryTableViewCell.swift in Sources */,
+				F4FCD8B42779690100BA5FA1 /* WeatherTableViewCell.swift in Sources */,
 				F4FCD896277966B300BA5FA1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

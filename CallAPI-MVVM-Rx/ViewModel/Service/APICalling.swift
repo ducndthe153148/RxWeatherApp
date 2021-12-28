@@ -15,8 +15,10 @@ public enum RequestType: String {
 }
 
 class APIRequest {
-    // change url to weather api 
-    let baseURL = URL(string: "https://api.printful.com/countries")!
+//    change url to weather api
+//    let baseURL = URL(string: "https://api.printful.com/countries")!
+    
+    let baseURL = URL(string: "https://api.openweathermap.org/data/2.5/onecall?lat=35.7020691&lon=139.7753269&appid=78ed6b8b11e08ae58625e4a726e6d625")!
     var method = RequestType.GET
     var parameters = [String: String]()
     

@@ -9,12 +9,14 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class CountryViewModel {
+class WeatherViewModel {
     var apiCalling = APICalling()
     
     //MARK: - Property 
     var listCountry: PublishRelay<[CountryListModel]> = .init()
     var listWeather: PublishRelay<[HourlyWeather]> = .init()
+    var models = [HourlyWeather]()
+    
     var viewWillApper: PublishRelay<Void> = .init()
     var disposedBag = DisposeBag()
     
@@ -40,9 +42,13 @@ class CountryViewModel {
     
     func ViewModel() {
         let request = APIRequest()
-        self.apiCalling.send(apiRequest: request, type: [HourlyWeather].self).subscribe(onNext: { [weak self] list in
+        self.apiCalling.send(apiRequest: request, type: WeatherReponse.self).subscribe(onNext: { [weak self] list in
             guard let self = self else { return }
-            self.listWeather.accept(list)
+            let entries = list.hourly
+            
+            self.models.append(contentsOf: entries!)
+            self.listWeather.accept(self.models)
+            
         }).disposed(by: disposedBag)
     }
     

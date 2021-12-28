@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CountryTableViewCell: UITableViewCell {
+class WeatherTableViewCell: UITableViewCell {
     
     @IBOutlet weak var labelTest: UILabel!
     @IBOutlet weak var realTemp: UILabel!
@@ -28,10 +28,10 @@ class CountryTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    static let identifier = "CountryTableViewCell"
+    static let identifier = "WeatherTableViewCell"
     
     static func nib() -> UINib {
-        return UINib(nibName: "CountryTableViewCell", bundle: nil)
+        return UINib(nibName: "WeatherTableViewCell", bundle: nil)
     }
     
     private let apiCalling = APICalling()
