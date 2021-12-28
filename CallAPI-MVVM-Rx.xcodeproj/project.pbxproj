@@ -105,7 +105,6 @@
 			children = (
 				F4FCD8A7277966F400BA5FA1 /* Model */,
 				F4FCD8A82779671A00BA5FA1 /* View */,
-				F4FCD897277966B300BA5FA1 /* WeatherViewController.swift */,
 				F4FCD8A92779671F00BA5FA1 /* ViewModel */,
 				F4FCD893277966B300BA5FA1 /* AppDelegate.swift */,
 				F4FCD895277966B300BA5FA1 /* SceneDelegate.swift */,
@@ -128,6 +127,7 @@
 		F4FCD8A82779671A00BA5FA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F4FCD897277966B300BA5FA1 /* WeatherViewController.swift */,
 				F4922C6D277AA3C600CDD6C1 /* WeatherTableViewCell */,
 				F4FCD8B72779CCC500BA5FA1 /* HourlyDetailController */,
 				F4FCD8B62779CCA900BA5FA1 /* HourlyCollectionViewCell */,

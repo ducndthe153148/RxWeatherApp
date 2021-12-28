@@ -15,6 +15,9 @@ class WeatherViewModel {
     //MARK: - Property 
     var listCountry: PublishRelay<[CountryListModel]> = .init()
     var listWeather: PublishRelay<[HourlyWeather]> = .init()
+    var sendHourlyWeather: PublishRelay<Int> = .init()
+    var receiveModelHourly: PublishRelay<HourlyWeather> = .init()
+    
     var models = [HourlyWeather]()
     
     var viewWillApper: PublishRelay<Void> = .init()
@@ -30,6 +33,7 @@ class WeatherViewModel {
                 return
             }
         }).disposed(by: disposedBag)
+        self.clickCell()
     }
     
 //    func ViewModel() {
@@ -40,13 +44,21 @@ class WeatherViewModel {
 //        }).disposed(by: disposedBag)
 //    }
     
+    func clickCell(){
+        self.sendHourlyWeather.subscribe(onNext: { [weak self] number in
+            // print("cell thu may: \(self!.models[number])")
+            print("Chay vao day")
+            self!.receiveModelHourly.accept(self!.models[number])
+        })
+    }
+    
     func ViewModel() {
         let request = APIRequest()
         self.apiCalling.send(apiRequest: request, type: WeatherReponse.self).subscribe(onNext: { [weak self] list in
             guard let self = self else { return }
             let entries = list.hourly
-            
             self.models.append(contentsOf: entries!)
+            
             self.listWeather.accept(self.models)
             
         }).disposed(by: disposedBag)

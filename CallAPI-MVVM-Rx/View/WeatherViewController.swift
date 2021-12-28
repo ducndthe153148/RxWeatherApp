@@ -14,16 +14,19 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var viewWillAppear: PublishRelay<Void> = .init()
+    
+    var sendHourlyWeather: PublishRelay<Int> = .init()
+    
     var disposedBag = DisposeBag()
     let viewModel = WeatherViewModel()
-    let apiCalling = APICalling()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.register(WeatherTableViewCell.nib().self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
-        //tableView.delegate = self
-        // Bind country first
+//        tableView.delegate = self
+        
+//         Bind country first
 //        self.viewModel.listCountry.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell", cellType: CountryTableViewCell.self)) { ( row, model, cell) in
 ////            cell.textLabel?.text = model.name
 //            cell.labelTest.text = model.name
@@ -46,19 +49,19 @@ class WeatherViewController: UIViewController {
             
         }.disposed(by: disposedBag)
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
+        self.sendHourlyWeather.bind(to: self.viewModel.sendHourlyWeather).disposed(by: disposedBag)
         
-//        tableView.rx
-//            .willDisplayCell
-//            .subscribe(onNext: { cell, indexPath in
-//           //Do your will display logic
-//                    print("def")
-//                    let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
-//                    
-//                    // pass by reference
-//                    let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
-//                    self.navigationController?.pushViewController(controller, animated: true)
-//                   })
-//                .disposed(by: disposedBag)
+        tableView.rx
+            .itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                print("push Abc")
+                let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
+                
+                self?.sendHourlyWeather.accept(indexPath.row)
+                
+                self?.navigationController?.pushViewController(controller, animated: true)
+            })
     }
     
     override func viewWillAppear(_ animated: Bool) {
