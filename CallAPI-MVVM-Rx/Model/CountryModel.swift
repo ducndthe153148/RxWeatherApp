@@ -75,21 +75,23 @@ struct RainWeather: Codable {
 }
 
 struct HourlyWeather: Codable {
-    let dt: Double?
-    let temp: Float?
-    let feels_like: Float?
-    let pressure: Float?
-    let humidity: Int?
-    let dew_point: Float?
-    let uiv: Float?
-    let clouds: Int?
-    let visibility: Int?
-    let wind_speed: Float?
-    let wind_deg: Float?
-    let wind_gust: Float?
-    let weather: [WeatherInfo]?
-    let pop: Float?
-    let rain: RainWeather?
+    var dt: Double?
+    var temp: Float?
+    var feels_like: Float?
+    var pressure: Float?
+    var humidity: Int?
+    var dew_point: Float?
+    var uiv: Float?
+    var clouds: Int?
+    var visibility: Int?
+    var wind_speed: Float?
+    var wind_deg: Float?
+    var wind_gust: Float?
+    var weather: [WeatherInfo]?
+    var pop: Float?
+    var rain: RainWeather?
+    
+    init() {}
 }
 
 struct DailyWeather: Codable{

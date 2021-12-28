@@ -12,18 +12,20 @@ import RxCocoa
 class WeatherViewModel {
     var apiCalling = APICalling()
     
-    //MARK: - Property 
-    var listCountry: PublishRelay<[CountryListModel]> = .init()
+    //MARK: - Property
+    weak var vc: UIViewController!
+//    var listCountry: PublishRelay<[CountryListModel]> = .init()
     var listWeather: PublishRelay<[HourlyWeather]> = .init()
-    var sendHourlyWeather: PublishRelay<Int> = .init()
-    var receiveModelHourly: PublishRelay<HourlyWeather> = .init()
+//    var sendHourlyWeather: PublishRelay<Int> = .init()
+    var modelSelect: PublishRelay<HourlyWeather> = .init()
+    var receiveModelHourly: BehaviorRelay<HourlyWeather> = .init(value: HourlyWeather())
     
     var models = [HourlyWeather]()
     
     var viewWillApper: PublishRelay<Void> = .init()
     var disposedBag = DisposeBag()
     
-    init() {
+    init(vc: UIViewController) {
         self.viewWillApper.subscribe({ [weak self] event in
             guard let self = self else { return }
             switch event {
@@ -33,23 +35,18 @@ class WeatherViewModel {
                 return
             }
         }).disposed(by: disposedBag)
-        self.clickCell()
-    }
-    
-//    func ViewModel() {
-//        let request = APIRequest()
-//        self.apiCalling.send(apiRequest: request, type: CountryModel.self).subscribe(onNext: { [weak self] list in
-//            guard let self = self else { return }
-//            self.listCountry.accept(list.result ?? [])
-//        }).disposed(by: disposedBag)
-//    }
-    
-    func clickCell(){
-        self.sendHourlyWeather.subscribe(onNext: { [weak self] number in
-            // print("cell thu may: \(self!.models[number])")
-            print("Chay vao day")
-            self!.receiveModelHourly.accept(self!.models[number])
-        })
+//        self.clickCell()
+        modelSelect.subscribe(onNext: { model in
+            let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
+            
+//            self?.sendHourlyWeather.accept(indexPath.row)
+            
+            vc.navigationController?.pushViewController(controller, animated: true)
+            controller.viewModel.receiveModelHourly.accept(model)
+            
+        }).disposed(by: disposedBag)
+        self.vc = vc
     }
     
     func ViewModel() {
@@ -64,4 +61,21 @@ class WeatherViewModel {
         }).disposed(by: disposedBag)
     }
     
+//    func ViewModel() {
+//        let request = APIRequest()
+//        self.apiCalling.send(apiRequest: request, type: CountryModel.self).subscribe(onNext: { [weak self] list in
+//            guard let self = self else { return }
+//            self.listCountry.accept(list.result ?? [])
+//        }).disposed(by: disposedBag)
+//    }
+    
+//    func clickCell(){
+//        self.sendHourlyWeather.subscribe(onNext: { [weak self] number in
+//            // print("cell thu may: \(self!.models[number])")
+//            print("Chay vao day la cell so: \(number)")
+//            self!.receiveModelHourly.accept(self!.models[number])
+//        })
+//    }
+    
+
 }

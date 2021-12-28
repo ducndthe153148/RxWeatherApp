@@ -18,7 +18,7 @@ class WeatherViewController: UIViewController {
     var sendHourlyWeather: PublishRelay<Int> = .init()
     
     var disposedBag = DisposeBag()
-    let viewModel = WeatherViewModel()
+    lazy var viewModel = WeatherViewModel(vc: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,47 +48,31 @@ class WeatherViewController: UIViewController {
             cell.imageIcon.image = UIImage(named: icon!)
             
         }.disposed(by: disposedBag)
-        self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
-        self.sendHourlyWeather.bind(to: self.viewModel.sendHourlyWeather).disposed(by: disposedBag)
         
-        tableView.rx
-            .itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                print("push Abc")
-                let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
-                
-                self?.sendHourlyWeather.accept(indexPath.row)
-                
-                self?.navigationController?.pushViewController(controller, animated: true)
-            })
+        self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
+//        self.sendHourlyWeather.bind(to: self.viewModel.sendHourlyWeather).disposed(by: disposedBag)
+        
+         tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
+            guard let self = self else { return }
+             self.viewModel.modelSelect.accept(model)
+        }).disposed(by: disposedBag)
+        
+//        tableView.rx
+//            .itemSelected
+//            .subscribe(onNext: { [weak self] indexPath in
+//                let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
+//                let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
+//
+//                self?.sendHourlyWeather.accept(indexPath.row)
+//
+//                self?.navigationController?.pushViewController(controller, animated: true)
+//            })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear.accept(())
     }
     
-    
-    
-}
-
-extension WeatherViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Abc")
-        let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
-        
-        // pass by reference
-        let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
-//        controller.text = loctionText
-//        controller.models = models[indexPath.row]
-//        print("Index selected cell: \(String(describing: models[indexPath.row].temp))")
-        //self.present(controller, animated: true, completion: nil)
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
 }
 
 extension WeatherViewController {

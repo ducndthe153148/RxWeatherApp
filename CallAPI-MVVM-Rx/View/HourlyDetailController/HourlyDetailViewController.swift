@@ -27,31 +27,33 @@ class HourlyDetailViewController: UIViewController {
     
     //MARK: - Property
     
-    var receiveModelHourly: PublishRelay<HourlyWeather> = .init()
+//    var receiveModelHourly: PublishRelay<HourlyWeather> = .init()
 
     var disposedBag = DisposeBag()
-    let viewModel = WeatherViewModel()
+    lazy var viewModel = WeatherViewModel(vc: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-//        self.sendHourlyWeather.subscribe(onNext: { [weak self] number in
-//            print("Number: \(number)")
-//        }).disposed(by: disposedBag)
+//        self.receiveModelHourly.bind(to: self.viewModel.receiveModelHourly).disposed(by: disposedBag)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.receiveModelHourly.bind(to: self.viewModel.receiveModelHourly).disposed(by: disposedBag)
-
-        self.receiveModelHourly.subscribe(onNext: { model in
-            print("Model del \(model)")
-            print("ABCD Model")
-        })
+//        self.receiveModelHourly.bind(to: self.viewModel.receiveModelHourly).disposed(by: disposedBag)
+//
+        viewModel.receiveModelHourly.subscribe(onNext: { model in
+            if model.weather != nil {
+                print("Model del \(model)")
+                print("ABCD Model")
+            }
+            
+        }).disposed(by: disposedBag)
         
-        labelTest.text = "Trung Duc"
+//        labelTest.text = "Trung Duc"
         
     }
     
