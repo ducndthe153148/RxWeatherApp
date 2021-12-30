@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 class WeatherViewModel {
     var apiCalling = APICalling()
@@ -21,8 +22,11 @@ class WeatherViewModel {
     
     var models = [HourlyWeather]()
     
-    var viewWillApper: PublishRelay<Void> = .init()
+    var viewWillApper: BehaviorRelay<Void> = .init(value: ())
     var disposedBag = DisposeBag()
+    
+    var currentLocation: CLLocation?
+    var locationManager = CLLocationManager()
     
     init(vc: UIViewController) {
         self.viewWillApper.subscribe({ [weak self] event in
@@ -61,8 +65,9 @@ class WeatherViewModel {
     }
     
     func setupLocation() {
-        let vc = WeatherViewController()
-        vc.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
     }
     
 //    func ViewModel() {
@@ -81,5 +86,4 @@ class WeatherViewModel {
 //        })
 //    }
     
-
 }

@@ -17,12 +17,14 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var headerView: UIView!
     
     
-    var viewWillAppear: PublishRelay<Void> = .init()
+    var viewWillAppear: BehaviorRelay<Void> = .init(value: ())
     
     var sendHourlyWeather: PublishRelay<Int> = .init()
     
     var disposedBag = DisposeBag()
+    
     lazy var viewModel = WeatherViewModel(vc: self)
+    lazy var locationModel = LocationViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +50,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         }.disposed(by: disposedBag)
         
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
-//        self.sendHourlyWeather.bind(to: self.viewModel.sendHourlyWeather).disposed(by: disposedBag)
+        self.viewWillAppear.bind(to: self.locationModel.viewWillApper).disposed(by: disposedBag)
         
         self.tableView.rx.setDelegate(self).disposed(by: disposedBag)
         
