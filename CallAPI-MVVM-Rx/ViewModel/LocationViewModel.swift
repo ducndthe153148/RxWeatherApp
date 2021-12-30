@@ -15,6 +15,7 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
         
     var viewWillApper: BehaviorRelay<Void> = .init(value: ())
     var disposedBag = DisposeBag()
+    var sendLocation: BehaviorRelay<CLPlacemark> = .init(value: CLPlacemark())
     
     var currentLocation: CLLocation?
     static let shared: LocationViewModel = LocationViewModel()
@@ -48,7 +49,8 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
     
     func changeLocation() {
         let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(currentLocation!) { (placemarks, error) in
+        geocoder.reverseGeocodeLocation(currentLocation!) { [weak self] (placemarks, error) in
+            guard let self = self else { return }
                 if (error != nil){
                     print("error in reverseGeocode")
                 }
@@ -58,6 +60,7 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
                     print(placemark.locality!)
                     print(placemark.administrativeArea!)
                     print(placemark.country!)
+                    self.sendLocation.accept(placemark)
                 }
             }
     }

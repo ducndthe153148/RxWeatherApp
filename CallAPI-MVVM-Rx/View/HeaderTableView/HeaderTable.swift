@@ -13,7 +13,9 @@ class HeaderTable: UIView {
     @IBOutlet weak var country: UILabel!
     @IBOutlet weak var temp: UILabel!
     @IBOutlet weak var type: UILabel!
-        
+    
+    lazy var locationViewModel = LocationViewModel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -30,7 +32,9 @@ class HeaderTable: UIView {
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        
+//        locationViewModel.sendLocation.subscribe(onNext: { [weak self] result in
+//            print("Dong 36: Result is:")
+//        })
     }
     
     
