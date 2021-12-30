@@ -9,4 +9,5 @@ target 'CallAPI-MVVM-Rx' do
   pod 'Alamofire'
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxDataSources'
 end

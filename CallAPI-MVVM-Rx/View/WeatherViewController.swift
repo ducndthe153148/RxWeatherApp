@@ -8,10 +8,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
+import CoreLocation
 
 class WeatherViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var headerView: UIView!
     
     var viewWillAppear: PublishRelay<Void> = .init()
     
@@ -24,15 +27,8 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.register(WeatherTableViewCell.nib().self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
-//        tableView.delegate = self
         
-//         Bind country first
-//        self.viewModel.listCountry.bind(to: tableView.rx.items(cellIdentifier: "CountryTableViewCell", cellType: CountryTableViewCell.self)) { ( row, model, cell) in
-////            cell.textLabel?.text = model.name
-//            cell.labelTest.text = model.name
-//            cell.realTemp.text = model.code
-//
-//        }.disposed(by: disposedBag)
+//        self.tableView.tableHeaderView = self.createTableHeader()
         
         view.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
         
@@ -69,12 +65,23 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
 //
 //                self?.navigationController?.pushViewController(controller, animated: true)
 //            })
+        
+//        let dataSouce = RxTableViewSectionedReloadDataSource<SectionModelType> (configureCell: {(_, tv, indexPath, element) in
+//
+//        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        self.headerView.frame.size = CGSize(width: tableView.frame.width, height: tableView.frame.width)
         viewWillAppear.accept(())
     }
     
+    func createTableHeader() -> UIView{
+        let headerVIew = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
+        headerVIew.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
+        
+        return headerVIew
+    }
 }
 
 extension WeatherViewController {

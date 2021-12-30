@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Differentiator
 
 struct CountryModel: Codable {
     let code: Int?
@@ -23,6 +24,19 @@ struct CountryListModel: Codable {
     private enum CodingKeys: String, CodingKey {
         case code
         case name
+    }
+}
+
+struct TargetSection {
+    var header: String
+    var items: [HourlyWeather]
+}
+
+extension TargetSection: SectionModelType {
+    typealias Item = HourlyWeather
+    init(original: TargetSection, items: [Item]) {
+        self = original
+        self.items = items
     }
 }
 

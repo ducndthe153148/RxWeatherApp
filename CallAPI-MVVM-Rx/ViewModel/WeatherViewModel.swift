@@ -60,6 +60,10 @@ class WeatherViewModel {
         }).disposed(by: disposedBag)
     }
     
+    func setupLocation() {
+        
+    }
+    
 //    func ViewModel() {
 //        let request = APIRequest()
 //        self.apiCalling.send(apiRequest: request, type: CountryModel.self).subscribe(onNext: { [weak self] list in
