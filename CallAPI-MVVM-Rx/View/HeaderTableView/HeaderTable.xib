@@ -11,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HeaderTable" customModule="CallAPI_MVVM_Rx" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="8hA-UJ-D49"/>
+                <outlet property="country" destination="4Es-vy-4Ru" id="g4Z-bL-oWs"/>
+                <outlet property="temp" destination="iyT-Hd-bRX" id="i57-NE-RK4"/>
+                <outlet property="type" destination="hwU-9G-ukP" id="OQU-rk-DPs"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,9 +21,20 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label Test" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Es-vy-4Ru">
-                    <rect key="frame" x="100" y="116" width="215" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Es-vy-4Ru">
+                    <rect key="frame" x="164" y="59" width="86.5" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clouds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwU-9G-ukP">
+                    <rect key="frame" x="180" y="119" width="54" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyT-Hd-bRX">
+                    <rect key="frame" x="169.5" y="180" width="75" height="60"/>
                     <fontDescription key="fontDescription" type="system" pointSize="50"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -28,7 +42,15 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemOrangeColor"/>
-            <point key="canvasLocation" x="331.8840579710145" y="189.84375"/>
+            <constraints>
+                <constraint firstItem="4Es-vy-4Ru" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="9SQ-x8-di6"/>
+                <constraint firstItem="hwU-9G-ukP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LMb-w1-QNR"/>
+                <constraint firstItem="iyT-Hd-bRX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TIh-n0-f0y"/>
+                <constraint firstItem="iyT-Hd-bRX" firstAttribute="top" secondItem="hwU-9G-ukP" secondAttribute="bottom" constant="40" id="c8H-bL-kwI"/>
+                <constraint firstItem="hwU-9G-ukP" firstAttribute="top" secondItem="4Es-vy-4Ru" secondAttribute="bottom" constant="30" id="gJE-62-L7e"/>
+                <constraint firstItem="4Es-vy-4Ru" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wiW-nI-GnC"/>
+            </constraints>
+            <point key="canvasLocation" x="331.8840579710145" y="189.50892857142856"/>
         </view>
     </objects>
     <resources>

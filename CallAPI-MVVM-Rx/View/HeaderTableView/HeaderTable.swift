@@ -9,7 +9,11 @@ import UIKit
 
 class HeaderTable: UIView {
     
+    @IBOutlet weak var country: UILabel!
     @IBOutlet var contentView: HeaderTable!
+    @IBOutlet weak var temp: UILabel!
+    @IBOutlet weak var type: UILabel!
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -25,5 +29,9 @@ class HeaderTable: UIView {
         self.addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        self.country.text = "Trung duc"
     }
+    
+    
 }

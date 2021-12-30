@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wgy-PU-M0S" customClass="HeaderTable" customModule="CallAPI_MVVM_Rx" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="217"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 </view>
@@ -37,6 +37,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="3oR-rg-RXo"/>
                     <connections>
+                        <outlet property="headerView" destination="Wgy-PU-M0S" id="fCh-Kf-yis"/>
                         <outlet property="tableView" destination="QfF-G8-6wJ" id="F0E-qL-Tfs"/>
                     </connections>
                 </viewController>

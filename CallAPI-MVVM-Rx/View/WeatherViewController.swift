@@ -16,6 +16,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
     
+    
     var viewWillAppear: PublishRelay<Void> = .init()
     
     var sendHourlyWeather: PublishRelay<Int> = .init()
@@ -28,7 +29,8 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view.
         tableView.register(WeatherTableViewCell.nib().self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         
-//        self.tableView.tableHeaderView = self.createTableHeader()
+        headerView.frame.size.width = view.frame.size.width
+        headerView.frame.size.height = view.frame.size.height / 4
         
         view.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
         

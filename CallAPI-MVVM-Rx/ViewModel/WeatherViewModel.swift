@@ -61,7 +61,8 @@ class WeatherViewModel {
     }
     
     func setupLocation() {
-        
+        let vc = WeatherViewController()
+        vc.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
     }
     
 //    func ViewModel() {
