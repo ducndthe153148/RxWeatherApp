@@ -14,7 +14,7 @@ class HeaderTable: UIView {
     @IBOutlet weak var temp: UILabel!
     @IBOutlet weak var type: UILabel!
     
-    lazy var locationViewModel = LocationViewModel()
+    //lazy var locationViewModel = LocationViewModel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -24,17 +24,21 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     var disposedBag = DisposeBag()
     
     lazy var viewModel = WeatherViewModel(vc: self)
-    lazy var locationModel = LocationViewModel()
+    var locationModel = LocationViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.register(WeatherTableViewCell.nib().self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
         
+        // Định sửa cell đầu tiên của table view nhưng không được
+        tableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
+        
         headerView.frame.size.width = view.frame.size.width
         headerView.frame.size.height = view.frame.size.height / 4
         
         view.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
+        
         
         self.viewModel.listWeather.bind(to: tableView.rx.items(cellIdentifier: "WeatherTableViewCell", cellType: WeatherTableViewCell.self)) { (row, model, cell) in
             let date = NSDate(timeIntervalSince1970: model.dt!)
@@ -50,33 +54,29 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         }.disposed(by: disposedBag)
         
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
+        
+        // dang co bug o day
         self.viewWillAppear.bind(to: self.locationModel.viewWillApper).disposed(by: disposedBag)
         
         self.tableView.rx.setDelegate(self).disposed(by: disposedBag)
         
+        tableView.rx.itemSelected.asObservable()
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                print("Row selected: \(indexPath.row)")
+//                let cell = self.tableView.cellForRow(at: indexPath) as? HourlyTableViewCell
+            }).disposed(by: disposedBag)
+        
+//        event tap on each cell
         tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
             guard let self = self else { return }
              self.viewModel.modelSelect.accept(model)
         }).disposed(by: disposedBag)
-        
-//        tableView.rx
-//            .itemSelected
-//            .subscribe(onNext: { [weak self] indexPath in
-//                let storyboard = UIStoryboard(name: "HourlyDetailViewController", bundle: nil)
-//                let controller = storyboard.instantiateViewController(withIdentifier: "HourlyDetailViewController") as! HourlyDetailViewController
-//
-//                self?.sendHourlyWeather.accept(indexPath.row)
-//
-//                self?.navigationController?.pushViewController(controller, animated: true)
-//            })
-        
-//        let dataSouce = RxTableViewSectionedReloadDataSource<SectionModelType> (configureCell: {(_, tv, indexPath, element) in
-//
-//        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
 //        self.headerView.frame.size = CGSize(width: tableView.frame.width, height: tableView.frame.width)
+        print("Accept 1 view View Will appear")
         viewWillAppear.accept(())
     }
     

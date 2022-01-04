@@ -16,7 +16,7 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
     var viewWillApper: BehaviorRelay<Void> = .init(value: ())
     var disposedBag = DisposeBag()
     var sendLocation: BehaviorRelay<CLPlacemark> = .init(value: CLPlacemark())
-    
+    var place: CLPlacemark?
     var currentLocation: CLLocation?
     static let shared: LocationViewModel = LocationViewModel()
     let locationManager = CLLocationManager()
@@ -44,10 +44,13 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
         guard let currentLocation = currentLocation else { return }
         let long = currentLocation.coordinate.longitude
         print("day la dong long thu 44: \(long)")
-        self.changeLocation()
+        self.changeLocation { [weak self] a in
+            guard let self = self else { return }
+            //self.sendLocation.accept(a)
+        }
     }
     
-    func changeLocation() {
+    func changeLocation(completion: @escaping (CLPlacemark)->()) {
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(currentLocation!) { [weak self] (placemarks, error) in
             guard let self = self else { return }
@@ -56,11 +59,16 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
                 }
                 let placemark = placemarks! as [CLPlacemark]
                 if placemark.count>0{
-                    let placemark = placemarks![0]
-                    print(placemark.locality!)
-                    print(placemark.administrativeArea!)
-                    print(placemark.country!)
-                    self.sendLocation.accept(placemark)
+                    let a = placemarks
+                    var placemark1 = a![0]
+                    var placemark2 = CLPlacemark(placemark: placemark1)
+                    self.place = CLPlacemark(placemark: placemark1)
+                    print(placemark1.locality!)
+                    print(placemark1.administrativeArea!)
+                    print(placemark1.country!)
+                    self.sendLocation.accept(CLPlacemark(placemark: placemark1))
+                    //completion(self.place!)
+                   
                 }
             }
     }
