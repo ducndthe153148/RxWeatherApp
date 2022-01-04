@@ -26,6 +26,23 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     lazy var viewModel = WeatherViewModel(vc: self)
     var locationModel = LocationViewModel()
     
+    let dataSource2 = RxTableViewSectionedReloadDataSource<SectionModel<String, WeatherReponse>>(
+        configureCell: { (dataSource, tabbleView, indexPath, item) in
+            if indexPath.section == 0 {
+                let cell = tabbleView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as! HourlyTableViewCell
+                return cell
+            }
+            let cell = tabbleView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+            return cell
+        },
+        titleForHeaderInSection: { dataSource, sectionIndex in
+            return dataSource[sectionIndex].model
+        },
+        titleForFooterInSection: { dataSource, sectionIndex in
+            return "xyz"
+        }
+    )
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -56,7 +73,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
         
         // dang co bug o day
-        self.viewWillAppear.bind(to: self.locationModel.viewWillApper).disposed(by: disposedBag)
+//        self.viewWillAppear.bind(to: self.locationModel.viewWillApper).disposed(by: disposedBag)
         
         self.tableView.rx.setDelegate(self).disposed(by: disposedBag)
         

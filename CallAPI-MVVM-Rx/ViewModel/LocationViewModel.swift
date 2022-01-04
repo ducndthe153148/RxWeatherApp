@@ -46,7 +46,9 @@ class LocationViewModel: NSObject, CLLocationManagerDelegate {
         print("day la dong long thu 44: \(long)")
         self.changeLocation { [weak self] a in
             guard let self = self else { return }
-            //self.sendLocation.accept(a)
+            DispatchQueue.main.async {
+                //self.sendLocation.accept(a)
+            }
         }
     }
     
