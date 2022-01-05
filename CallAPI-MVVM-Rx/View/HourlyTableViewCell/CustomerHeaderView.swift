@@ -18,11 +18,26 @@ class CustomerHeaderView: UITableViewHeaderFooterView {
         
     }
     
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        print("Ga la ga dang gay 123 ")
+//        collectionView.register(WeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
+    }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print("Ga la ga dang gay 456")
+        collectionView.register(WeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
     
 }
 
 extension CustomerHeaderView: UICollectionViewDataSource, UICollectionViewDelegate {
+    // Khong chay vao day
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 15
     }
