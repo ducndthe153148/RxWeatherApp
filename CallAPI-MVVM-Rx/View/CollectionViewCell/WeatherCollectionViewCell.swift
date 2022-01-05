@@ -19,7 +19,6 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("Me danh roi hhuhhuu")
         // Initialization code
     }
 

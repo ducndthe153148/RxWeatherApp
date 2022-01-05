@@ -126,6 +126,7 @@ extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomerHeaderView") as! CustomerHeaderView
         headerView.collectionView.register(WeatherCollectionViewCell.nib().self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+        
         headerView.collectionView.delegate = self
         headerView.collectionView.dataSource = self
         
@@ -146,9 +147,10 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as! WeatherCollectionViewCell
 //        cell.config()
         
-//        self.viewModel.listWeather.subscribe(onNext: { [weak self] models in
-//            cell.configure(with: models[indexPath.row])
-//        })
+        self.viewModel.listWeather.subscribe(onNext: { [weak self] models in
+//            print(models)
+            cell.configure(with: models[indexPath.row])
+        })
         
         return cell
     }
