@@ -45,7 +45,7 @@ class WeatherViewModel {
     weak var vc: UIViewController!
 //    var listCountry: PublishRelay<[CountryListModel]> = .init()
     var listWeather: PublishRelay<[HourlyWeather]> = .init()
-    var listWeatherTest: PublishRelay<SectionModel<String, [HourlyWeather]>> = .init()
+    var listWeatherTest: BehaviorRelay<[SectionModel<String, HourlyWeather>]> = .init(value: [])
     
     var modelSelect: PublishRelay<HourlyWeather> = .init()
     var receiveModelHourly: BehaviorRelay<HourlyWeather> = .init(value: HourlyWeather())
@@ -89,9 +89,9 @@ class WeatherViewModel {
             let entries = list.hourly
             self.models.append(contentsOf: entries!)
             
-//            self.listWeather.accept(self.models)
+            self.listWeather.accept(self.models)
             self.listWeatherTest.accept(
-                SectionModel(model: "Mammal", items: [self.models])
+                [SectionModel(model: "Test", items: self.models)]
             )
             
         }).disposed(by: disposedBag)

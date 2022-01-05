@@ -25,18 +25,19 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     
     lazy var viewModel = WeatherViewModel(vc: self)
     var locationModel = LocationViewModel()
+    var modelsTest = [HourlyWeather]()
     
     // Data source
     let dataSource1 = RxTableViewSectionedReloadDataSource<SectionModel<String, HourlyWeather>>(
         configureCell: { (dataSource, tabbleView, indexPath, item) in
-            if indexPath.section == 0 {
-                let cell = tabbleView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as! HourlyTableViewCell
-                return cell
-            }
+//            if indexPath.section == 0 {
+//                let cell = tabbleView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as! HourlyTableViewCell
+//                return cell
+//            }
             let cell = tabbleView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
 
             let date = NSDate(timeIntervalSince1970: item.dt!)
-            cell.labelTest.text = changeDTDate(dtTime: date as Date)
+            cell.labelTest.text = WeatherViewController.changeDTDate(dtTime: date as Date)
             cell.feelTemp.text = "\(Int(Double(item.feels_like!) - 272.15))°"
             cell.realTemp.text = "\(Int(Double(item.temp!) - 272.15))°"
             // Back ground color  cell
@@ -46,12 +47,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
             cell.imageIcon.image = UIImage(named: icon!)
             
             return cell
-        },
-        titleForHeaderInSection: { dataSource, sectionIndex in
-            return dataSource[sectionIndex].model
-        },
-        titleForFooterInSection: { dataSource, sectionIndex in
-            return "xyz"
         }
     )
     
@@ -59,9 +54,9 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.register(WeatherTableViewCell.nib().self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
-        
-        // Định sửa cell đầu tiên của table view nhưng không được
-        tableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
+//        tableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
+        tableView.register(UINib(nibName: "CustomerHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomerHeaderView")
+
         
         headerView.frame.size.width = view.frame.size.width
         headerView.frame.size.height = view.frame.size.height / 4
@@ -83,9 +78,8 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
 //        }.disposed(by: disposedBag)
         
         // bind data
-        self.viewModel.listWeatherTest
-            .bind(to: tableView.rx.items(dataSource: dataSource1))
-            .disposed(by: disposedBag)
+        
+        self.viewModel.listWeatherTest.asObservable().bind(to: self.tableView.rx.items(dataSource: dataSource1)).disposed(by: disposedBag)
         
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
         
@@ -97,7 +91,8 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
 //        event tap on each cell
         tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
             guard let self = self else { return }
-             self.viewModel.modelSelect.accept(model)
+            print("Danh van di: \(model)")
+            self.viewModel.modelSelect.accept(model)
         }).disposed(by: disposedBag)
     }
     
@@ -107,12 +102,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         viewWillAppear.accept(())
     }
     
-    func createTableHeader() -> UIView{
-        let headerVIew = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
-        headerVIew.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
-        
-        return headerVIew
-    }
 }
 
 extension WeatherViewController {
@@ -128,6 +117,40 @@ extension WeatherViewController {
 
 extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return view.frame.height/6
     }
+    
+    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    //        view.tintColor = UIColor.purple
+    //    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomerHeaderView") as! CustomerHeaderView
+        headerView.collectionView.register(WeatherCollectionViewCell.nib().self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+        headerView.collectionView.delegate = self
+        headerView.collectionView.dataSource = self
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 150
+    }
+}
+
+extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 24
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as! WeatherCollectionViewCell
+//        cell.config()
+        
+//        self.viewModel.listWeather.subscribe(onNext: { [weak self] models in
+//            cell.configure(with: models[indexPath.row])
+//        })
+        
+        return cell
+    }
+    
 }
