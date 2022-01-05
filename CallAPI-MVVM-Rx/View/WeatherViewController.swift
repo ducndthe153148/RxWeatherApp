@@ -119,15 +119,9 @@ extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.frame.height/6
     }
-    
-    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    //        view.tintColor = UIColor.purple
-    //    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomerHeaderView") as! CustomerHeaderView
-//        headerView.collectionView.register(WeatherCollectionViewCell.nib().self, forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
-//        headerView.collectionView.delegate = self
-//        headerView.collectionView.dataSource = self
         
         return headerView
     }
@@ -137,21 +131,3 @@ extension WeatherViewController: UITableViewDelegate {
     }
 }
 
-extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as! WeatherCollectionViewCell
-//        cell.config()
-        
-        self.viewModel.listWeather.subscribe(onNext: { [weak self] models in
-//            print(models)
-            cell.configure(with: models[indexPath.row])
-        })
-        
-        return cell
-    }
-    
-}

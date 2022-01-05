@@ -92,8 +92,8 @@
 		F4664D3B277C615200577D7E /* HeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				F4664D40277C627F00577D7E /* HeaderTable.xib */,
 				F4664D42277C644100577D7E /* HeaderTable.swift */,
+				F4664D40277C627F00577D7E /* HeaderTable.xib */,
 			);
 			path = HeaderView;
 			sourceTree = "<group>";

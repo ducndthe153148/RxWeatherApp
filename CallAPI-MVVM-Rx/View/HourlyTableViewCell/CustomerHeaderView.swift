@@ -6,16 +6,38 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
+import RxDataSources
 
 class CustomerHeaderView: UITableViewHeaderFooterView {
     
+    lazy var viewModel = WeatherViewModel(vc: UIViewController())
+    let disposeBag = DisposeBag()
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
-    override class func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         print("Tup leu ly tuong")
-        // collectionView.register(WeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+        collectionView.register(WeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
         
+        // Bind data
+        self.viewModel.listWeather.bind(to: collectionView.rx.items(cellIdentifier: WeatherCollectionViewCell.identifier, cellType: WeatherCollectionViewCell.self)) { (row, model, cell) in
+            
+            cell.tempLabel.text = "\(Int((model.temp!) - 272.15))°"
+            cell.imageIcon.contentMode = .scaleAspectFit
+            cell.imageIcon.image = UIImage(named: model.weather![0].icon!)
+            
+            let date = NSDate(timeIntervalSince1970: model.dt!)
+            // get hour now (so sanh voi time chinh)
+            let dateNow = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: dateNow)
+            
+            cell.timeNow.text = "\(self.getHourForDate(date as Date))"
+            
+        }.disposed(by: disposeBag)
     }
     
     override init(reuseIdentifier: String?) {
@@ -29,9 +51,9 @@ class CustomerHeaderView: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         print("Ga la ga dang gay 456")
-        collectionView.register(WeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.register(WeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: WeatherCollectionViewCell.identifier)
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
     }
     
 }
@@ -39,12 +61,21 @@ class CustomerHeaderView: UITableViewHeaderFooterView {
 extension CustomerHeaderView: UICollectionViewDataSource, UICollectionViewDelegate {
     // Khong chay vao day
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return 24
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WeatherCollectionViewCell.identifier, for: indexPath) as! WeatherCollectionViewCell
         cell.timeNow.text = "16"
         return cell
+    }
+}
+
+extension CustomerHeaderView {
+    func getHourForDate(_ date : Date?) -> String {
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "hh"
+        let dateString = dayTimePeriodFormatter.string(from: date! as Date)
+        return dateString
     }
 }
