@@ -9,6 +9,34 @@ import Foundation
 import RxSwift
 import RxCocoa
 import CoreLocation
+import RxDataSources
+
+// MARK: - Test:
+struct TableViewItem {
+    let title: HourlyWeather
+    
+    init(title: HourlyWeather) {
+        self.title = title
+    }
+}
+
+struct TableViewSection {
+    let items: [TableViewItem]
+    let header: String
+    
+    init(items: [TableViewItem], header: String) {
+        self.items = items
+        self.header = header
+    }
+}
+
+extension TableViewSection: SectionModelType {
+    typealias Item = TableViewItem
+    
+    init(original: Self, items: [Self.Item]) {
+        self = original
+    }
+}
 
 class WeatherViewModel {
     var apiCalling = APICalling()
@@ -17,6 +45,8 @@ class WeatherViewModel {
     weak var vc: UIViewController!
 //    var listCountry: PublishRelay<[CountryListModel]> = .init()
     var listWeather: PublishRelay<[HourlyWeather]> = .init()
+    var listWeatherTest: PublishRelay<SectionModel<String, [HourlyWeather]>> = .init()
+    
     var modelSelect: PublishRelay<HourlyWeather> = .init()
     var receiveModelHourly: BehaviorRelay<HourlyWeather> = .init(value: HourlyWeather())
     
@@ -59,7 +89,10 @@ class WeatherViewModel {
             let entries = list.hourly
             self.models.append(contentsOf: entries!)
             
-            self.listWeather.accept(self.models)
+//            self.listWeather.accept(self.models)
+            self.listWeatherTest.accept(
+                SectionModel(model: "Mammal", items: [self.models])
+            )
             
         }).disposed(by: disposedBag)
     }

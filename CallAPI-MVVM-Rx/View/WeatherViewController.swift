@@ -26,13 +26,25 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     lazy var viewModel = WeatherViewModel(vc: self)
     var locationModel = LocationViewModel()
     
-    let dataSource2 = RxTableViewSectionedReloadDataSource<SectionModel<String, WeatherReponse>>(
+    // Data source
+    let dataSource1 = RxTableViewSectionedReloadDataSource<SectionModel<String, HourlyWeather>>(
         configureCell: { (dataSource, tabbleView, indexPath, item) in
             if indexPath.section == 0 {
                 let cell = tabbleView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as! HourlyTableViewCell
                 return cell
             }
             let cell = tabbleView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+
+            let date = NSDate(timeIntervalSince1970: item.dt!)
+            cell.labelTest.text = changeDTDate(dtTime: date as Date)
+            cell.feelTemp.text = "\(Int(Double(item.feels_like!) - 272.15))°"
+            cell.realTemp.text = "\(Int(Double(item.temp!) - 272.15))°"
+            // Back ground color  cell
+            cell.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
+            
+            let icon = item.weather?[0].icon
+            cell.imageIcon.image = UIImage(named: icon!)
+            
             return cell
         },
         titleForHeaderInSection: { dataSource, sectionIndex in
@@ -57,18 +69,23 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
         
         
-        self.viewModel.listWeather.bind(to: tableView.rx.items(cellIdentifier: "WeatherTableViewCell", cellType: WeatherTableViewCell.self)) { (row, model, cell) in
-            let date = NSDate(timeIntervalSince1970: model.dt!)
-            cell.labelTest.text = self.changeDTDate(dtTime: date as Date)
-            cell.feelTemp.text = "\(Int(Double(model.feels_like!) - 272.15))°"
-            cell.realTemp.text = "\(Int(Double(model.temp!) - 272.15))°"
-            // Back ground color  cell
-            cell.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
-            
-            let icon = model.weather?[0].icon
-            cell.imageIcon.image = UIImage(named: icon!)
-            
-        }.disposed(by: disposedBag)
+//        self.viewModel.listWeather.bind(to: tableView.rx.items(cellIdentifier: "WeatherTableViewCell", cellType: WeatherTableViewCell.self)) { (row, model, cell) in
+//            let date = NSDate(timeIntervalSince1970: model.dt!)
+//            cell.labelTest.text = WeatherViewController.changeDTDate(dtTime: date as Date)
+//            cell.feelTemp.text = "\(Int(Double(model.feels_like!) - 272.15))°"
+//            cell.realTemp.text = "\(Int(Double(model.temp!) - 272.15))°"
+//            // Back ground color  cell
+//            cell.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
+//
+//            let icon = model.weather?[0].icon
+//            cell.imageIcon.image = UIImage(named: icon!)
+//
+//        }.disposed(by: disposedBag)
+        
+        // bind data
+        self.viewModel.listWeatherTest
+            .bind(to: tableView.rx.items(dataSource: dataSource1))
+            .disposed(by: disposedBag)
         
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
         
@@ -76,13 +93,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
 //        self.viewWillAppear.bind(to: self.locationModel.viewWillApper).disposed(by: disposedBag)
         
         self.tableView.rx.setDelegate(self).disposed(by: disposedBag)
-        
-        tableView.rx.itemSelected.asObservable()
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                print("Row selected: \(indexPath.row)")
-//                let cell = self.tableView.cellForRow(at: indexPath) as? HourlyTableViewCell
-            }).disposed(by: disposedBag)
         
 //        event tap on each cell
         tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
@@ -107,7 +117,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
 
 extension WeatherViewController {
     
-    func changeDTDate (dtTime: Date?) -> String {
+    static func changeDTDate (dtTime: Date?) -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "EEEE hh:mm"
         let dateString = dayTimePeriodFormatter.string(from: dtTime! as Date)
