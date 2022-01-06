@@ -49,7 +49,6 @@ class CustomerHeaderView: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         print("Ga la ga dang gay 456")
-
     }
     
 }

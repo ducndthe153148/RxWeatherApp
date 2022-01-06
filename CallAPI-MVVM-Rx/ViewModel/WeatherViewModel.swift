@@ -85,6 +85,7 @@ class WeatherViewModel {
     func ViewModel() {
         let request = APIRequest()
         self.apiCalling.send(apiRequest: request, type: WeatherReponse.self).subscribe(onNext: { [weak self] list in
+            print("chet roi bi lap roi")
             guard let self = self else { return }
             let entries = list.hourly
             self.models.append(contentsOf: entries!)

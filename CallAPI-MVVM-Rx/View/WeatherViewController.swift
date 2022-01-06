@@ -30,10 +30,8 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     // Data source
     let dataSource1 = RxTableViewSectionedReloadDataSource<SectionModel<String, HourlyWeather>>(
         configureCell: { (dataSource, tabbleView, indexPath, item) in
-//            if indexPath.section == 0 {
-//                let cell = tabbleView.dequeueReusableCell(withIdentifier: "HourlyTableViewCell", for: indexPath) as! HourlyTableViewCell
-//                return cell
-//            }
+
+            print("Do anh biet indexpath la bnhieu: \(indexPath)")
             let cell = tabbleView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
 
             let date = NSDate(timeIntervalSince1970: item.dt!)
@@ -62,30 +60,14 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         headerView.frame.size.height = view.frame.size.height / 4
         
         view.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
-        
-        
-//        self.viewModel.listWeather.bind(to: tableView.rx.items(cellIdentifier: "WeatherTableViewCell", cellType: WeatherTableViewCell.self)) { (row, model, cell) in
-//            let date = NSDate(timeIntervalSince1970: model.dt!)
-//            cell.labelTest.text = WeatherViewController.changeDTDate(dtTime: date as Date)
-//            cell.feelTemp.text = "\(Int(Double(model.feels_like!) - 272.15))°"
-//            cell.realTemp.text = "\(Int(Double(model.temp!) - 272.15))°"
-//            // Back ground color  cell
-//            cell.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1.0)
-//
-//            let icon = model.weather?[0].icon
-//            cell.imageIcon.image = UIImage(named: icon!)
-//
-//        }.disposed(by: disposedBag)
-        
+
         // bind data
-        
         self.viewModel.listWeatherTest.asObservable().bind(to: self.tableView.rx.items(dataSource: dataSource1)).disposed(by: disposedBag)
-        
         self.viewWillAppear.bind(to: self.viewModel.viewWillApper).disposed(by: disposedBag)
-        
-        // dang co bug o day
+        // MARK: - dang co bug o day
 //        self.viewWillAppear.bind(to: self.locationModel.viewWillApper).disposed(by: disposedBag)
         
+//        Set delegate
         self.tableView.rx.setDelegate(self).disposed(by: disposedBag)
         
 //        event tap on each cell
@@ -122,7 +104,6 @@ extension WeatherViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CustomerHeaderView") as! CustomerHeaderView
-        
         return headerView
     }
     
