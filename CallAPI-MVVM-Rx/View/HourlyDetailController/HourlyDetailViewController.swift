@@ -36,7 +36,24 @@ class HourlyDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(doThis), name: NSNotification.Name("Test"), object: nil)
+        print("Go here")
+    }
     
+    @objc func doThis () {
+        let alert = UIAlertController(title: "YOUR_TITLE", message: "YOUR_MESSAGE", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            // Handle your ok action
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            // Handle your cancel action
+        }
+        alert.addAction(cancelAction)
+        print("Go to do this")
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -72,6 +72,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         
 //        event tap on each cell
         tableView.rx.modelSelected(HourlyWeather.self).subscribe(onNext: { [weak self] model in
+            NotificationCenter.default.post(name: Notification.Name("Test"), object: nil)
             guard let self = self else { return }
             print("Danh van di: \(model)")
             self.viewModel.modelSelect.accept(model)
