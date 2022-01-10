@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import CoreLocation
+import UserNotifications
 
 class WeatherViewController: UIViewController, UIScrollViewDelegate {
 
@@ -75,8 +76,35 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
             NotificationCenter.default.post(name: Notification.Name("Test"), object: nil)
             guard let self = self else { return }
             print("Danh van di: \(model)")
+            self.viewModel.sendNoti()
+            
             self.viewModel.modelSelect.accept(model)
         }).disposed(by: disposedBag)
+        
+//        // MARK: - Send Local Notification
+//        // Step 1: Ask for permission
+//        let center = UNUserNotificationCenter.current()
+//        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+//            // Step 2: create the notification content
+//            let content = UNMutableNotificationContent()
+//            content.title = "Hey i'm Trung Duc handsome"
+//            content.body = "Look at me"
+//
+//            // Step 3: Create the notification trigger
+//            let date = Date().addingTimeInterval(5)
+//            let dateComponent = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+//            let trigger = UNCalendarNotificationTrigger (dateMatching: dateComponent, repeats: false)
+//
+//            // Step 4: Create the request
+//            let uuidString = UUID().uuidString
+//            let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+//
+//            // Step 5: Register the request
+//            center.add(request) { error in
+//                // check the error parameter and handle error
+//
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 import RxDataSources
+import NotificationCenter
 
 // MARK: - Test:
 struct TableViewItem {
@@ -96,6 +97,32 @@ class WeatherViewModel {
             )
             
         }).disposed(by: disposedBag)
+    }
+    
+    func sendNoti(){
+        // Step 1: Ask for permission
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+            // Step 2: create the notification content
+            let content = UNMutableNotificationContent()
+            content.title = "Hey i'm Trung Duc handsome"
+            content.body = "Look at me"
+            
+            // Step 3: Create the notification trigger
+            let date = Date().addingTimeInterval(5)
+            let dateComponent = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            let trigger = UNCalendarNotificationTrigger (dateMatching: dateComponent, repeats: false)
+            
+            // Step 4: Create the request
+            let uuidString = UUID().uuidString
+            let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+            
+            // Step 5: Register the request
+            center.add(request) { error in
+                // check the error parameter and handle error
+                
+            }
+        }
     }
     
     func setupLocation() {
