@@ -55,7 +55,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
         tableView.register(WeatherTableViewCell.nib().self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
 //        tableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
         tableView.register(UINib(nibName: "CustomerHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "CustomerHeaderView")
-
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         
         headerView.frame.size.width = view.frame.size.width
         headerView.frame.size.height = view.frame.size.height / 4
