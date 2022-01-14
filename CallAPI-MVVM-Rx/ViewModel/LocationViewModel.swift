@@ -13,9 +13,9 @@ import UIKit
 
 class LocationViewModel: NSObject, CLLocationManagerDelegate {
         
-    var viewWillApper: BehaviorRelay<Void> = .init(value: ())
+    var viewWillApper: PublishRelay<Void> = .init()
     var disposedBag = DisposeBag()
-    var sendLocation: BehaviorRelay<CLPlacemark> = .init(value: CLPlacemark())
+    var sendLocation: PublishRelay<CLPlacemark> = .init()
     var place: CLPlacemark?
     var currentLocation: CLLocation?
     static let shared: LocationViewModel = LocationViewModel()

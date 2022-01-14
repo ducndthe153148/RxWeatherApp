@@ -18,7 +18,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var headerView: UIView!
     
     
-    var viewWillAppear: BehaviorRelay<Void> = .init(value: ())
+    var viewWillAppear: PublishRelay<Void> = .init()
     
     var sendHourlyWeather: PublishRelay<Int> = .init()
     

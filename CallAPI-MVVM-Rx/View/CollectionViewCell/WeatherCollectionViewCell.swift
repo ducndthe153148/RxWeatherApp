@@ -15,7 +15,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
     
-    var viewWillAppear: BehaviorRelay<Void> = .init(value: ())
+    var viewWillAppear: PublishRelay<Void> = .init()
     
     override func awakeFromNib() {
         super.awakeFromNib()
